@@ -1,6 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit'
 import authReducer from './authSlice' //import authentication slice
-//import bankingReducer from './bankingSlice' //import banking slice
 import { persistStore, persistReducer, FLUSH, REHYDRATE,PAUSE,PERSIST,PURGE,REGISTER, } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
 import { combineReducers } from '@reduxjs/toolkit';

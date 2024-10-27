@@ -1,49 +1,56 @@
-import { Server } from "miragejs";
+// mirage/data/authData.ts
+import { Server } from 'miragejs';
 
 export const signInUserData = (server: Server) => {
-    server.create('team', {
-        teamName: 'Wellness Group',
-        description: 'A team dedicated to wellness activities',
-        teamLeader: [],
-        teamCaptain: [],
-        role: ["teamLeader", 'teamCaptain', 'SuperAdmin' ],
-      });
+  // Create users with roles
+  const superAdmin = server.create('user', {
+    firstName: 'Samuel',
+    lastName: 'Adedigba',
+    email: 'superAdmin@collectiveiq.com',
+    password: '123456',
+    role: 'superAdmin'
+  });
 
-    server.create("user", {
-    userId: "1",
-    firstName: 'Alice',
-    lastName: 'Brown',
-    email: "user@gmail.com",
-    password: "112233",
-    role: ["user"],
+  const teamLeader = server.create('user', {
+    firstName: 'Jane',
+    lastName: 'Doe',
+    email: 'teamLeader@collectiveiq.com',
+    password: '123456',
+    role: 'teamLeader'
   });
-  server.create("user", {
-    userId: "2",
-    firstName: "Jane",
-    lastName: "Doe",
-    email: "teamleader@gmail.com",
-    password: "123456",
-    role:[ "TeamLeader"],
-    team: [],
-  });
-  server.create("user", {
-    userId: "3",
-    firstName: "Samuel",
-    lastName: "Adedigba",
-    email: "superadmin@gmail.com",
-    password: "112233",
-    role: ["SuperAdmin"],
-    team: [],
-  });
-  server.create('user', {
-    userId: '4',
+
+  const teamCaptain = server.create('user', {
     firstName: 'John',
     lastName: 'Smith',
-    email: 'teamcaptain@gmail.com',
+    email: 'teamCaptain@collectiveiq.com',
     password: '123456',
-    role: ['TeamCaptain'],
-    team: [],
+    role: 'teamCaptain'
+  });
+  server.create('user', {
+    firstName: 'Alice',
+    lastName: 'Brown',
+    email: 'user1@collectiveiq.com',
+    password: '123456',
+    role: 'user'
   });
 
+  server.create('user', {
+    firstName: 'Bob',
+    lastName: 'Johnson',
+    email: 'user2@collectiveiq.com',
+    password: '123456',
+    role: 'user'
+  });
+
+  // Create a team
+  const wellnessGroup = server.create('team', {
+    name: 'Wellness Group',
+    description: 'A team dedicated to wellness activities',
+    users: [superAdmin, teamLeader, teamCaptain]
+  });
+
+  // Link team members to the team
+  superAdmin.update({ team: wellnessGroup });
+  teamLeader.update({ team: wellnessGroup });
+  teamCaptain.update({ team: wellnessGroup });
 };
-  

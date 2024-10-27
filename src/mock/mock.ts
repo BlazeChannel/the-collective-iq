@@ -9,12 +9,13 @@ export function makeServer() {
 
         models: {
             user: Model.extend({
-                team: belongsTo()
+                team: belongsTo('team'),
+                role: 'user'  // Role can be 'user', 'teamLeader', or 'teamCaptain'
             }),
             team: Model.extend({
-                users: hasMany(),
-                teamLeader: belongsTo('user'),
-                teamCaptain: hasMany('user')
+                users: hasMany('user'), // Team has many users; users have roles to specify leaders or captains
+                // teamLeader: belongsTo('user'),
+                // teamCaptain: belongsTo('user')
             })
         },
 
@@ -23,14 +24,11 @@ export function makeServer() {
           },
 
         seeds(server) {
-            // server.db.loadData({
-            //     signInUserData,
-            // })
             signInUserData(server);
         },
 
         routes() {
-            this.urlPrefix= ''
+            this.urlPrefix=  ''
             this.namespace =''
             this.passthrough((request) => {
                 const external =request.url.startsWith('http')

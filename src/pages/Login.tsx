@@ -23,18 +23,13 @@ const Login = () =>{
                 localStorage.setItem('banktoken', JSON.stringify({email: values.email, role: result.role,  token: result.token}) );
                 console.log('login succesful', result);
                 console.log('Logged in as a', result.role);
-                // if (result.role === 'superAdmin') {
-                //     navigate('/superadmin');
-                // } else if (result.role === 'bankManager') {
-                //     navigate('/bankmanager');
-                // } else {
-                //     navigate('/user');
-                // }       
-                navigate('/user');
+                //navigate('/dashboard');
+                if(result.role === 'user')
+                    { navigate('/user')}
+                else{ navigate('/dashboard')}
             }  
             else{
                 setLoginError('Invalid email or password');
-               // alert('Invalid email or password')
             }    
            
         } catch (error) {
