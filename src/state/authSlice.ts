@@ -19,7 +19,7 @@ interface AuthState {
 }
 //custom api fetching
 export const RegisterSlice = createAsyncThunk(
-  "/register",
+  "/register/state",
   async (user: User, { rejectWithValue }) => {
     try {
       const response = await api.post("/register", user);
@@ -39,14 +39,18 @@ export const RegisterSlice = createAsyncThunk(
 );
 
 export const LoginSlice = createAsyncThunk(
-  "/login",
+  "/login/state",
   async (user: { email: string; password: string }, { rejectWithValue }) => {
     try {
       const response = await api.post("/login", user);
-      return response.data;
+      if (response.status === 200) {
+        console.log('Login:', response.data.data)
+        return response.data.data; 
+          }
+      return rejectWithValue('Invalid email or password');
     } catch (error) {
-      return console.error("login fetch failed", error);
-      return rejectWithValue("Login Failed");
+      console.error('Login fetch failed', error);
+      return rejectWithValue('Login Failed');
     }
   }
 );
@@ -80,18 +84,18 @@ const authSlice = createSlice({
           state.user = action.payload;
           state.isAuthenticated = true;
           state.isLoading = true;
-          localStorage.setItem("banktoken", JSON.stringify(action.payload));
+          //localStorage.setItem("banktoken", JSON.stringify(action.payload));
         }
       )
       .addCase(LoginSlice.fulfilled, (state, action: PayloadAction<User>) => {
         state.user = action.payload;
         state.isAuthenticated = true;
         state.isLoading = false;
-        localStorage.setItem("banktoken", JSON.stringify(action.payload));
+       // localStorage.setItem("banktoken", JSON.stringify(action.payload));
       });
   },
 });
 
 export const { login, logout } = authSlice.actions;
-export const userSelector = (state: AuthState) => state.user;
+export const userSelector = (state) => state.auth.user;
 export default authSlice.reducer;

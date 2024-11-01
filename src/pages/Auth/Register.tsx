@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { RegisterSlice } from "../state/authSlice";
+import { RegisterSlice } from "../../state/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -28,7 +28,7 @@ const Register = () => {
     try {
       const result = await dispatch(RegisterSlice(formValue)).unwrap();
       if (result) {
-        localStorage.setItem('banktoken', JSON.stringify(formValue) )
+       // localStorage.setItem('banktoken', JSON.stringify(formValue) )
         console.log("register succesful", formValue);
         navigate("/login");
       }

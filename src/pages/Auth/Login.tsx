@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field,ErrorMessage } from 'formik'
 import { useDispatch } from "react-redux";
-import { LoginSlice } from '../state/authSlice'
+import { LoginSlice } from '../../state/authSlice'
 import * as Yup from 'yup'
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const Login = () =>{
         try{
             const result= await dispatch(LoginSlice(values)).unwrap();
             if (result){
-                localStorage.setItem('banktoken', JSON.stringify({email: values.email, role: result.role,  token: result.token}) );
+                //localStorage.setItem('banktoken', JSON.stringify({email: values.email, role: result.role,  token: result.token}) );
                 console.log('login succesful', result);
                 console.log('Logged in as a', result.role);
                 //navigate('/dashboard');

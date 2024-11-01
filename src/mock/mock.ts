@@ -34,7 +34,9 @@ export function makeServer() {
                 const external =request.url.startsWith('http')
                 return external
             })
-            this.passthrough()
+            // this.passthrough()
+        this.passthrough("https://ca44bd156ff47d74bc2f.free.beeceptor.com/api/");
+
 
             authFakeApi(this)
             teamFakeApi(this)

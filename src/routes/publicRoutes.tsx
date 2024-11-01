@@ -1,15 +1,20 @@
-import { lazy } from 'react'; // Imports React's `lazy` function for code splitting
-import Login from '../pages/Login';
-import Register from '../pages/Register';
+import Login from "../pages/Auth/Login";
+import Register from "../pages/Auth/Register";
+
 export const publicRoutes = [
   {
     key: 'login', 
-    path: '/login', 
+    path: '/', 
     component: <Login />
   },
   {
     key: 'register',
     path: '/register',
-    component: <Register /> 
+    component: <Register />
+  },
+  {
+    key: 'logout',
+    path: '/logout',
+    component: <Login />
   },
 ];

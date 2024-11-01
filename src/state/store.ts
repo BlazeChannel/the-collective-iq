@@ -1,5 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 import authReducer from './authSlice' //import authentication slice
+import profileReducer from './profileSlice'
+import teamReducer from "./teamSlice"
 import { persistStore, persistReducer, FLUSH, REHYDRATE,PAUSE,PERSIST,PURGE,REGISTER, } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
 import { combineReducers } from '@reduxjs/toolkit';
@@ -10,6 +12,8 @@ const persistConfig ={
 }
 const rootReducer = combineReducers({ //Combines different reducers into a single root reducer. 
     auth: authReducer,
+    profileState: profileReducer,
+    team:teamReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer); // store's state to be saved in localStorage and rehydrated on app load.
